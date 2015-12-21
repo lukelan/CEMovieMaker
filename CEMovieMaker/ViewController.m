@@ -46,7 +46,14 @@
         [frames addObject:icon3];
     }
 
-    [self.movieMaker createMovieFromImages:[frames copy] withCompletion:^(NSURL *fileURL){
+//    [self.movieMaker createMovieFromImages:[frames copy] withCompletion:^(NSURL *fileURL){
+//        [self viewMovieAtUrl:fileURL];
+//    }];
+    
+    NSString *audioPath = [NSString stringWithFormat:@"%@/salutmarin.m4a", [[NSBundle mainBundle] resourcePath]];
+
+//    NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"salutmarin.m4a" ofType:@"m4a"];
+    [self.movieMaker createMovieFromImagesAndAudio:[frames copy] audioPath:audioPath withCompletion:^(NSURL *fileURL){
         [self viewMovieAtUrl:fileURL];
     }];
 }

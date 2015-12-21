@@ -15,6 +15,7 @@
 		321B3F4619CA08C50077829E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 321B3F4419CA08C50077829E /* LaunchScreen.xib */; };
 		321B3F5219CA08C50077829E /* CEMovieMakerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 321B3F5119CA08C50077829E /* CEMovieMakerTests.m */; };
 		321B3F5D19CA08DE0077829E /* CEMovieMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 321B3F5C19CA08DE0077829E /* CEMovieMaker.m */; };
+		52556C581C27C32500F94F5D /* salutmarin.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 52556C571C27C14800F94F5D /* salutmarin.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		321B3F5119CA08C50077829E /* CEMovieMakerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEMovieMakerTests.m; sourceTree = "<group>"; };
 		321B3F5B19CA08DE0077829E /* CEMovieMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEMovieMaker.h; sourceTree = "<group>"; };
 		321B3F5C19CA08DE0077829E /* CEMovieMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEMovieMaker.m; sourceTree = "<group>"; };
+		52556C571C27C14800F94F5D /* salutmarin.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = salutmarin.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		321B3F3519CA08C50077829E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				52556C571C27C14800F94F5D /* salutmarin.m4a */,
 				321B3F3619CA08C50077829E /* Info.plist */,
 				321B3F3719CA08C50077829E /* main.m */,
 			);
@@ -204,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52556C581C27C32500F94F5D /* salutmarin.m4a in Resources */,
 				321B3F4119CA08C50077829E /* Main.storyboard in Resources */,
 				321B3F4619CA08C50077829E /* LaunchScreen.xib in Resources */,
 				321B3F4319CA08C50077829E /* Images.xcassets in Resources */,
@@ -418,6 +422,7 @@
 				321B3F5719CA08C50077829E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		321B3F5819CA08C50077829E /* Build configuration list for PBXNativeTarget "CEMovieMakerTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +431,7 @@
 				321B3F5A19CA08C50077829E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -172,6 +172,61 @@ typedef UIImage*(^CEMovieMakerUIImageExtractor)(NSObject* inputObject);
     return pxbuffer;
 }
 
+- (void)createMovieFromImagesAndAudio:(NSArray CE_GENERIC_IMAGE*)images audioPath:(NSString*)audioPath withCompletion:(CEMovieMakerCompletion)completion {
+    [self createMovieFromSource:images extractor:^UIImage *(NSObject *inputObject) {
+        return (UIImage*)inputObject;
+    } withCompletion:^(NSURL *fileURL) {
+        NSURL *_audioPath = [NSURL fileURLWithPath:audioPath];
+        [self compileFilesToMakeMovie:fileURL audioPath:_audioPath];
+    }];
+}
+
+-(void)compileFilesToMakeMovie:(NSURL*)videoPath audioPath:(NSURL*)audioPath
+{
+    AVMutableComposition* mixComposition = [AVMutableComposition composition];
+    
+    NSURL*    audio_inputFileUrl = audioPath;
+    
+    NSURL*    video_inputFileUrl = videoPath;
+    
+    NSString* outputFileName = @"outputFile.mov";
+    NSString *outputFilePath = [NSString stringWithFormat:@"%@/%@", NSTemporaryDirectory(), outputFileName];
+    NSURL*    outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])
+        [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
+    
+    
+    
+    CMTime nextClipStartTime = kCMTimeZero;
+    
+    AVURLAsset* videoAsset = [[AVURLAsset alloc]initWithURL:video_inputFileUrl options:nil];
+    CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,videoAsset.duration);
+    AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:nextClipStartTime error:nil];
+    
+    //nextClipStartTime = CMTimeAdd(nextClipStartTime, a_timeRange.duration);
+    
+    AVURLAsset* audioAsset = [[AVURLAsset alloc]initWithURL:audio_inputFileUrl options:nil];
+    CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
+    AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+    [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:nextClipStartTime error:nil];
+    
+    
+    
+    AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+    _assetExport.outputFileType = @"com.apple.quicktime-movie";
+    _assetExport.outputURL = outputFileUrl;
+    
+    [_assetExport exportAsynchronouslyWithCompletionHandler:
+     ^(void ) {
+         NSLog (@"Done");
+//         [self saveVideoToAlbum:outputFilePath];
+     }
+     ];
+}
+
+
 + (NSDictionary *)videoSettingsWithCodec:(NSString *)codec withWidth:(CGFloat)width andHeight:(CGFloat)height
 {
     
